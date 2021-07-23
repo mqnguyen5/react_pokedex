@@ -10,12 +10,9 @@ export default function Pokedex() {
   );
   const [nextPageUrl, setNextPageUrl] = useState();
   const [prevPageUrl, setPrevPageUrl] = useState();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     axios.get(currentPageUrl).then(res => {
-      setLoading(false);
       setNextPageUrl(res.data.next);
       setPrevPageUrl(res.data.previous);
       setPokemonList(res.data.results);
@@ -34,7 +31,7 @@ export default function Pokedex() {
     <PokemonCard key={pokemon.name} url={pokemon.url} />
   ));
 
-  if (loading) return <p>Loading Pokedex...</p>;
+  if (pokemonList.length === 0) return <p>Loading Pokedex...</p>;
 
   return (
     <>
