@@ -1,5 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
 import Pagination from "./Pagination";
 import PokemonCard from "./PokemonCard";
 
@@ -49,11 +51,12 @@ export default function Pokedex() {
   if (pokemons.length === 0) return <p>Loading Pokedex...</p>;
 
   const cards = pokemons.map(pokemon => (
-    <PokemonCard
-      key={pokemon.id}
-      pokemonName={pokemon.name}
-      imgUrl={pokemon.img}
-    />
+    <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+      <PokemonCard
+        pokemonName={pokemon.name ? pokemon.name : null}
+        imgUrl={pokemon.img ? pokemon.img : null}
+      />
+    </Link>
   ));
 
   return (
